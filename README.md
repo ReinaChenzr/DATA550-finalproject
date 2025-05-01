@@ -1,7 +1,7 @@
 # Heart Disease Logistic Regression Project (DATA550)
 
 This project investigates the relationship between clinical indicators and the presence of heart disease using logistic regression.  
-The final output is a fully reproducible HTML report generated via Docker.
+The final output is a fully reproducible HTML report and associated outputs generated via Docker.
 
 ---
 
@@ -11,7 +11,11 @@ The final output is a fully reproducible HTML report generated via Docker.
 final_project/
 ├── data/               # Contains the heart.csv dataset
 ├── scripts/            # R scripts for modeling, table, and figure generation
-├── report/             # Auto-generated report (heart_report.html) will appear here
+├── report/             # Auto-generated outputs: HTML report, table, figure, model
+│   ├── heart_report.html
+│   ├── table.csv
+│   ├── figure.png
+│   └── model.rds
 ├── heart_report.Rmd    # Final report (R Markdown)
 ├── Dockerfile          # Builds the Docker image
 ├── Makefile            # Automates report generation using Docker
@@ -51,7 +55,7 @@ make run
 This command will:
 - Launch the container from your DockerHub image  
 - Mount your local `report/` folder into the container  
-- Run R Markdown to generate the report into `report/heart_report.html`  
+- Run the R Markdown workflow to generate outputs into the `report/` folder  
 
 Once the process finishes, open `report/heart_report.html` in your browser.
 
@@ -78,7 +82,8 @@ docker run --rm -v "/c/Users/YourName/Desktop/final_project/report:/home/rstudio
 
 - [x] Dockerfile builds reproducible image  
 - [x] Makefile runs container to generate HTML report  
-- [x] Local `report/` folder used for mount point  
+- [x] All outputs saved to `report/` folder (HTML, PNG, CSV, RDS)  
 - [x] Public DockerHub image linked  
 - [x] README includes build/run instructions and project structure  
 - [x] Fully automated pipeline without manual steps  
+
