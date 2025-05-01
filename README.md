@@ -15,14 +15,17 @@ The final report includes:
 
 ## Repository Structure
 ```
-final_project/ 
-├── data/ # Contains the heart.csv dataset 
-├── scripts/ # R scripts for modeling, table, and figure generation 
-├── output/ # Auto-generated model file, CSV table, and PNG figure 
-├── heart report.Rmd # Final report (R Markdown) 
-├── heart report.html # Rendered HTML report (output) 
-├── Makefile # Automates report generation 
-└── README.md
+final_project/
+├── data/               # Contains the heart.csv dataset
+├── scripts/            # R scripts for modeling, table, and figure generation
+├── output/             # Includes table.csv, model.rds, figure.png, and final report HTML
+├── heart_report.Rmd    # Final report (R Markdown)
+├── Makefile            # Automates report generation
+├── Dockerfile          # Builds the Docker image
+├── renv.lock           # R package versions
+├── .Rprofile           # renv activation
+├── README.md           # Instructions and structure
+
 ```
 ---
 
