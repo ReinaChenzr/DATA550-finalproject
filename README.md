@@ -11,7 +11,7 @@ The final output is a fully reproducible HTML report generated via Docker.
 final_project/
 ├── data/               # Contains the heart.csv dataset
 ├── scripts/            # R scripts for modeling, table, and figure generation
-├── output/             # Auto-generated model.rds, table.csv, figure.png, and report
+├── report/             # Auto-generated report (heart_report.html) will appear here
 ├── heart_report.Rmd    # Final report (R Markdown)
 ├── Dockerfile          # Builds the Docker image
 ├── Makefile            # Automates report generation using Docker
@@ -27,25 +27,33 @@ final_project/
 Use the following command to build the image:
 
 ```bash
-docker build --platform=linux/amd64 -t reina02/data550-finalproject .
+docker build --platform=linux/amd64 -t reina02/data550-finalproject:latest .
 ```
 
 ---
 
 ## Run the automated report with Makefile
 
-To generate the report:
+### Step 1: Ensure the `report/` directory exists
+
+If the `report/` folder is not present, create it manually:
 
 ```bash
-make run-report
+mkdir report
+```
+
+### Step 2: Run the container using the Makefile
+
+```bash
+make run
 ```
 
 This command will:
-- Launch the container using your image  
-- Mount your local `output/` folder into the container  
-- Generate the `heart_report.html` report into the `output/` folder  
+- Launch the container from your DockerHub image  
+- Mount your local `report/` folder into the container  
+- Run R Markdown to generate the report into `report/heart_report.html`  
 
-After it finishes, open `output/heart_report.html` in your browser.
+Once the process finishes, open `report/heart_report.html` in your browser.
 
 ---
 
@@ -58,18 +66,19 @@ https://hub.docker.com/r/reina02/data550-finalproject
 
 ## Notes for Windows Users
 
-If you're using Git Bash, you may need to prepend `/` to the path when mounting:
+If you're using Git Bash on Windows, you may need to prepend `/` to the path when mounting:
 
 ```bash
-docker run --rm -v "/c/Users/YourName/Desktop/final_project/output:/project/report" reina02/data550-finalproject
+docker run --rm -v "/c/Users/YourName/Desktop/final_project/report:/home/rstudio/project/report" reina02/data550-finalproject:latest
 ```
 
 ---
 
-## Requirements Checklist
+## Requirements Checklist 
 
 - [x] Dockerfile builds reproducible image  
 - [x] Makefile runs container to generate HTML report  
-- [x] Public DockerHub image  
+- [x] Local `report/` folder used for mount point  
+- [x] Public DockerHub image linked  
 - [x] README includes build/run instructions and project structure  
-- [x] Fully automated pipeline without manual steps
+- [x] Fully automated pipeline without manual steps  
