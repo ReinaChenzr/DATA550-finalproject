@@ -1,51 +1,75 @@
-# Heart Disease Logistic Regression Project
+# Heart Disease Logistic Regression Project (DATA550)
 
-## Overview
-
-This project investigates the relationship between clinical indicators and the presence of heart disease using a public dataset. We apply logistic regression modeling and conduct exploratory analysis to identify key risk factors.
-
-The final report includes:
-
-- A logistic regression model using age, cholesterol, and resting blood pressure
-- Gender-based analysis of heart disease prevalence
-- A comparison of maximum heart rate by heart disease status
-- Multiple visualizations to support findings
+This project investigates the relationship between clinical indicators and the presence of heart disease using logistic regression.  
+The final output is a fully reproducible HTML report generated via Docker.
 
 ---
 
 ## Repository Structure
+
 ```
 final_project/
 ├── data/               # Contains the heart.csv dataset
 ├── scripts/            # R scripts for modeling, table, and figure generation
-├── output/             # Includes table.csv, model.rds, figure.png, and final report HTML
+├── output/             # Auto-generated model.rds, table.csv, figure.png, and report
 ├── heart_report.Rmd    # Final report (R Markdown)
-├── Makefile            # Automates report generation
 ├── Dockerfile          # Builds the Docker image
+├── Makefile            # Automates report generation using Docker
 ├── renv.lock           # R package versions
-├── .Rprofile           # renv activation
-├── README.md           # Instructions and structure
-
+├── .Rprofile           # Activates renv on load
+└── README.md
 ```
+
 ---
 
-## How to Reproduce the Report
+## Build the Docker image
 
-1. Ensure you have the following R packages installed:
-
-```r
-install.packages(c("ggplot2", "rmarkdown", "knitr"))
-```
-
-2. In your terminal or RStudio Terminal, navigate to the project folder and run:
+Use the following command to build the image:
 
 ```bash
-make
+docker build --platform=linux/amd64 -t reina02/data550-finalproject .
 ```
 
-This will:
-- Fit the logistic regression model
-- Generate a results table and figure
-- Knit the `report.Rmd` into a complete `report.html`
+---
+
+## Run the automated report with Makefile
+
+To generate the report:
+
+```bash
+make run-report
+```
+
+This command will:
+- Launch the container using your image  
+- Mount your local `output/` folder into the container  
+- Generate the `heart_report.html` report into the `output/` folder  
+
+After it finishes, open `output/heart_report.html` in your browser.
 
 ---
+
+## DockerHub Image
+
+Image is publicly available at:  
+https://hub.docker.com/r/reina02/data550-finalproject
+
+---
+
+## Notes for Windows Users
+
+If you're using Git Bash, you may need to prepend `/` to the path when mounting:
+
+```bash
+docker run --rm -v "/c/Users/YourName/Desktop/final_project/output:/project/report" reina02/data550-finalproject
+```
+
+---
+
+## Requirements Checklist
+
+- [x] Dockerfile builds reproducible image  
+- [x] Makefile runs container to generate HTML report  
+- [x] Public DockerHub image  
+- [x] README includes build/run instructions and project structure  
+- [x] Fully automated pipeline without manual steps
